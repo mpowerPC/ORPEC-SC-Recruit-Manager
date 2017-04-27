@@ -1,0 +1,11 @@
+from bot import *
+import requests
+import json
+import asyncio
+from xml.etree import ElementTree
+
+async def loadTable():
+    blank = 0
+
+if __name__ == "__main__":
+    print("Commands involving managing the Google Sheets that will store the Members of ORPEC")
