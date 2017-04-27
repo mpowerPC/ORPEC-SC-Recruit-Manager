@@ -62,5 +62,6 @@ target/
 .ipynb_checkpoints
 
 #Custom Ignores
-resources/token.txt
-resources/discord_api/
+token.txt
+discord.py/
+.idea/
