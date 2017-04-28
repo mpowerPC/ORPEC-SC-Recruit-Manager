@@ -65,3 +65,6 @@ target/
 token.txt
 discord.py/
 .idea/
+.DS_Store
+client_secret.json
+
