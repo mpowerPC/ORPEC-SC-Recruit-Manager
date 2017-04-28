@@ -16,16 +16,17 @@ import asyncio
 import discord
 
 # Application Modules
-from resources.support import fetch_token
-
-# Globals
-WPATH = os.path.dirname(os.path.realpath(__file__))
+from resources.support import *
 
 
 # The client is persistent, but should be in function/class. Figure out what works?
 client = discord.Client()
 
-token = fetch_token(os.path.join(WPATH, "resources", "token.txt"))
+token = fetch_token("resources/token.txt")
+
+
+def get_discord_members():
+    return [str(member.name) + "#" + str(member.discriminator) for member in client.get_all_members()]
 
 
 @client.event
@@ -35,6 +36,14 @@ async def on_ready():
     print(client.user.id)
     print('------')
 
+    print(get_discord_members())
+
+    ODB = ORPECDB('Members', 'Sheet1')
+    print(ODB.get_users())
+
+@client.event
+async def on_member_join(member):
+    print(member)
 
 @client.event
 async def on_message(message):
