@@ -67,4 +67,5 @@ discord.py/
 .idea/
 .DS_Store
 client_secret.json
+client_ID.txt
 
