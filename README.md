@@ -11,5 +11,5 @@ ORPEC-SC-Recruit-Manager
 |-- bot.py
 ```
 
-client_secret.json --> generate here https://console.developers.google.com/apis/credentials and rename.
-token.txt --> plain text of discord api token.
+* client_secret.json: Generate @ https://console.developers.google.com/apis/credentials.
+* token.txt: plain text of Discord API Token.
