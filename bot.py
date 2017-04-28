@@ -43,7 +43,11 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
-    print(member)
+    print("Member Joined", member)
+    server = member.server
+    print(server)
+    fmt = 'Welcome {0.mention} to ORPEC, the Outer Rim Protection and Exploration Corporation'
+    await client.send_message(server, fmt.format(member, server))
 
 @client.event
 async def on_message(message):

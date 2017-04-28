@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "orpec-sc-bot-manager",
+  "private_key_id": "68fa14ff0883cd8c6a14f8575460799ddea73774",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC/qx5fqJqIffu3\nZ6u3qxAiTE4wJgpzQcWsOnfMY9prFVciDUoDmtifR+AkUPEZj522wXDfjsIZEJ3c\nCbAsNgmYhfk2bnP9ltd5lPNuPmFf54lB/Ft3MiD+Jomb86+kkHC8TuDHXCDosMg0\ni65au9W95iyI/+hzK8/wklf1yQ7ILwyiqWpMqNa+fZOtwjqn4Eq+wLpWQOe2vPdC\nfY1Nju40px0S1QGWdB5cnyDUwG7hYozVeRc4J/Bzz4plq/ZWQyHazqft676IuP4g\nj8N8jt/BQgOFC9/ZCtROi+1S5qC+baat4dT6k3sbo7fSqPbV5FdTpv3ZXMa+ylMI\nkn2tdpI1AgMBAAECggEBAIY3CXnq0uupbM6tZe2jeBTMYiQNP1wePpGwD5usgJJj\nyzQpIh8MG4zOBALqOyqvCr2jD6s8iGaM4D3o+ti6rlWD21NmXQrCyfh1eVFFlWJW\n/CKc2F/LVpch3VK7fc865fa3NWfk95Z51HgXJ+yZg78Kozz8FoYvs9i+YaHXPOan\n9NOfvM3UnjBbDXQQNJ204U2OOCVjM7X7DSduhpNp77UHA+g+78wRiOqddpmDtSYY\nnBJXT981Lz8yAygpPpy4CWpayC5CHudAaJ5NUNZ9uUpMtqmQyl0iYHY/u4EZqDPA\nKtvaIWu49bX74l9i0JoQ5/n6K3EG0s+1Io4tRBuLijECgYEA6/k6dAB8Uh7nQ4Dt\nt5CTKyYFWSzMC2x5JNnTj7aVbe1A6OM3hyVpUhS+QMCg0gJ1Skxz9tyv3uAZUJtC\nNGNkQWg2NBPvVWQOTjrazWPT+s/WlqQxmxss7B39JQaJfeQ6XXfsXOsMMo17kmYL\n1Kv1SSkINVEmgRVCvI0tDqAaPIMCgYEAz+9Qv2A5v+01Q0K7hHa6CjqvKil1yqI7\nDsCaNDOny3r46Iae+RjgBJk92Q4+AsmnBype4VpY80YCkY8UdfvCQl3/0NM2VFbx\nPgo5D4Mx0z+dzaNh9LF6lO94CRGsaGrPfI2wZwDEH6k2wmbwilyfAZw/6/hSz8ob\nd6vW3JVcqOcCgYEAkvolQmObC7tb6FvBtPhD8jg4VJbmcKcbvaw/beAXquR/7Y64\n42CV/R4WclaI1MXbMG/2OuiyUmva2K4bym2t4F98g2t3QwSTNH7MEen/+tTBoAqd\nKzL+BAOZzRoJQXSKNfWgLy/n5QTi1wjgjZKdsPfxuOPWy8fmTXLRga6PKOkCgYBP\nCLl6ZErPBoxuKlk3+iCwbqnRrryU7qDf9JkoKlIm53DggPq/15KebNizPdSYHqmb\n8aDqqvqQTRYA2Y9/YNfvfecUKpPF7t33JM+Xc9hmYRHL7cP3y9W58mN/nvYXIjIH\nN5vLKuFg32Ju9c2L6bSOWiN5v4NKc5mJHQmoAiWcFQKBgD4KlqOPxJCia1rHkDVk\nZb3iTaNv7f9rDyVjSUsXl7yJnbVwjY9wCle76jkbarD3eUcxtS5Sl6uHI0YoKY6u\nxmfhEjujoiJsL+sd/T9NIilcJgeu7XpdoSDKbk+Ggvd/UhKQubCznXuqkZyzIzjv\nSFbA/5cRQX++WPhCw0mcNQb3\n-----END PRIVATE KEY-----\n",
+  "client_email": "admin-356@orpec-sc-bot-manager.iam.gserviceaccount.com",
+  "client_id": "118068848018198092214",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/admin-356%40orpec-sc-bot-manager.iam.gserviceaccount.com"
+}
