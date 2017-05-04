@@ -35,11 +35,17 @@ class GoogleClient:
         self.work_book = self.client.open(work_book)
         self.work_sheet = self.work_book.worksheet(work_sheet)
 
+    def reset_client(self):
+        self.client = gspread.authorize(ServiceAccountCredentials.from_json_keyfile_name('resources/client_secret.json',
+                                                                                         self.scope))
+
     def get_db(self):
         """
 
         :return: 
         """
+        self.reset_client()
+
         count = 2
         row = self.work_sheet.row_values(count)
 
@@ -84,6 +90,8 @@ class GoogleClient:
         
         :return: 
         """
+        self.reset_client()
+
         row = self.work_sheet.row_values(2)
         while row[3] != '' or row[1] != '':
             self.work_sheet.delete_row(2)

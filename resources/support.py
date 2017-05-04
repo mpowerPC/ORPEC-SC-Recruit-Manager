@@ -13,13 +13,6 @@ import requests
 from collections import namedtuple
 
 
-#Globals
-discord_member = namedtuple(
-        'disc_member',
-        'discord_name, discord_id, discord_nick, discord_join_date, roles, color'
-    )
-
-
 def fetch_token(file):
     """
     
