@@ -1,46 +1,59 @@
 # -*- coding: utf-8 -*-
 """
-    bot
-    
+    app
+
     ~~~
-    
-    Discord Server Bot.
-    
+
+    ORPEC Member Database, an application that utilizes Google Sheets, Discord, and SC-API.com to maintain an active
+    organization database.
+
     :copyright: 2017 ORPEC
 """
 # Standard Modules
-import os
-import asyncio
-
-# 3rd Party Modules
-import discord
+import time
+import threading
+import datetime
 
 # Application Modules
 from resources.support import *
+from resources.DiscordClient import discord_client
+from resources.GoogleClient import google_client
+from resources.Store import store
 
 
-# The client is persistent, but should be in function/class. Figure out what works?
-client = discord.Client()
+def bot():
+    """
+    
+    :return: 
+    """
+    last_date = datetime.datetime.now()
 
-token = fetch_token("resources/token.txt")
+    while True:
+        sys_date = datetime.datetime.now()
 
+        if sys_date > last_date + datetime.timedelta(minutes=5):
+            store.mass_update_rsi_info()
 
-def get_discord_members():
-    return [str(member.name) + "#" + str(member.discriminator) for member in client.get_all_members()]
+            google_client.clean_db()
 
+            google_client.reset_client()
+            for i, org_mem in enumerate(store.output()):
+                print(org_mem.create_record())
+                print()
+                google_client.write_db(i + 2, org_mem.create_record())
 
-@client.event
-async def on_ready():
-    print('Logged in as')
-    print(client.user.name)
-    print(client.user.id)
-    print('------')
+            last_date = sys_date
 
-    print(get_discord_members())
+        try:
+            existing_members = google_client.get_db()
+        except:
+            google_client.reset_client()
+            existing_members = google_client.get_db()
 
-    ODB = ORPECDB('Members', 'Sheet1')
-    print(ODB.get_users())
+        store.add_existing_members(existing_members)
 
+        time.sleep(60)
+        
 @client.event
 async def on_member_join(member):
     print("Member Joined", member)
@@ -49,18 +62,13 @@ async def on_member_join(member):
     fmt = 'Welcome {0.mention} to ORPEC, the Outer Rim Protection and Exploration Corporation'
     await client.send_message(server, fmt.format(member, server))
 
-@client.event
-async def on_message(message):
-    if message.content.startswith('!test'):
-        counter = 0
-        tmp = await client.send_message(message.channel, 'Calculating messages...')
-        async for log in client.logs_from(message.channel, limit=100):
-            if log.author == message.author:
-                counter += 1
 
-        await client.edit_message(tmp, 'You have {} messages.'.format(counter))
-    elif message.content.startswith('!sleep'):
-        await asyncio.sleep(5)
-        await client.send_message(message.channel, 'Done sleeping')
+def main():
+    bot_thread = threading.Thread(target=bot)
+    bot_thread.daemon = True
+    bot_thread.start()
 
-client.run(token)
+    discord_client.run(fetch_token("resources/token.txt"))
+
+if __name__ == '__main__':
+    main()
