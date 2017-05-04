@@ -53,6 +53,15 @@ def bot():
         store.add_existing_members(existing_members)
 
         time.sleep(60)
+        
+@client.event
+async def on_member_join(member):
+    print("Member Joined", member)
+    server = member.server
+    print(server)
+    fmt = 'Welcome {0.mention} to ORPEC, the Outer Rim Protection and Exploration Corporation'
+    await client.send_message(server, fmt.format(member, server))
+
 
 def main():
     bot_thread = threading.Thread(target=bot)
