@@ -18,6 +18,9 @@ import discord
 # Application Modules
 from resources.support import *
 
+import commands
+
+
 
 # The client is persistent, but should be in function/class. Figure out what works?
 client = discord.Client()
@@ -59,6 +62,21 @@ async def on_message(message):
                 counter += 1
 
         await client.edit_message(tmp, 'You have {} messages.'.format(counter))
+    elif message.content.startswith('!add'):
+        try:
+            inputVars = message.content.split(" ")[1:]
+
+        except IndexError:
+            temp = await client.send_message(message.channel, 'Invalid Request')
+        try:
+            temp = await client.send_message(message.channel, 'Adding ' + inputVars[0] + ' to ' + inputVars[1] + ' as ' + inputVars[2])
+        except IndexError:
+            temp = await client.send_message(message.channel,'Not enough details provided')
+    elif message.content.startswith('!showMember'):
+        inputVars = message.content.split(" ")[1:]
+        response = await commands.showMember(input);
+        await client.send_message(message.channel, response)
+
     elif message.content.startswith('!sleep'):
         await asyncio.sleep(5)
         await client.send_message(message.channel, 'Done sleeping')
