@@ -13,7 +13,6 @@ import datetime
 
 
 class Member:
-    orpec_id = ""
     rsi_handle = ""
     rsi_moniker = ""
     discord_name = ""
@@ -29,64 +28,64 @@ class Member:
     discord_rank = ""
     discord_fleet = ""
 
-    def __init__(self, orpec_record=None, discord_info=None):
+    def __init__(self, tracked_user=None, discord_user=None):
         """
         
         :param discord_name: 
         """
-        if orpec_record:
-            self.update_member(orpec_record)
+        if tracked_user:
+            self.update_member(tracked_user)
 
-        if discord_info:
-            self.update_discord_info(discord_info)
+        if discord_user:
+            self.update_discord_info(discord_user)
 
-    def update_member(self, orpec_record):
+    def update_member(self, tracked_user):
         """
         
-        :param orpec_record: 
+        :param tracked_user: 
         :return: 
         """
-        self.orpec_id = orpec_record.orpec_id
-        self.rsi_handle = orpec_record.rsi_handle
-        self.rsi_moniker = orpec_record.rsi_moniker
-        self.discord_name = orpec_record.discord_name
-        self.discord_nick = orpec_record.discord_nick
-        self.discord_id = orpec_record.discord_id
-        self.discord_join_date = datetime.datetime.strptime(orpec_record.discord_join_date, '%y-%m-%d %H:%M:%S.%f')
-        self.rsi_backer = orpec_record.rsi_backer
-        self.country = orpec_record.country
-        self.english = orpec_record.english
-        self.rsi_orpec_status = orpec_record.rsi_orpec_status
-        self.rsi_orpec_rank = orpec_record.rsi_orpec_rank
-        self.rsi_orpec_stars = orpec_record.rsi_orpec_stars
-        self.discord_rank = orpec_record.discord_rank
-        self.discord_fleet = orpec_record.discord_fleet
+        self.rsi_handle = tracked_user.rsi_handle
+        self.rsi_moniker = tracked_user.rsi_moniker
+        self.discord_name = tracked_user.discord_name
+        self.discord_nick = tracked_user.discord_nick
+        self.discord_id = tracked_user.discord_id
+        self.discord_join_date = datetime.datetime.strptime(tracked_user.discord_join_date, '%y-%m-%d %H:%M:%S.%f')
+        self.rsi_backer = tracked_user.rsi_backer
+        self.country = tracked_user.country
+        self.english = tracked_user.english
+        self.rsi_orpec_status = tracked_user.rsi_orpec_status
+        self.rsi_orpec_rank = tracked_user.rsi_orpec_rank
+        self.rsi_orpec_stars = tracked_user.rsi_orpec_stars
+        self.discord_rank = tracked_user.discord_rank
+        self.discord_fleet = tracked_user.discord_fleet
 
-    def update_rsi_info(self, rsi_info, type):
+    def update_rsi_info(self, rsi_info):
         """
         
         :param rsi_info: 
         :return: 
         """
-        self.rsi_handle = rsi_info['data']['handle']
         self.rsi_moniker = rsi_info['data']['moniker']
 
-        if type == 'cache':
+        if self.rsi_backer == 'N':
             self.rsi_backer = 'Y' if 'Backer' in rsi_info['data']['forum_roles'] else 'N'
 
         self.country = rsi_info['data']['country']
         self.english = 'Y' if 'English' in rsi_info['data']['fluency'] else 'N'
 
-        self.rsi_orpec_status = ""
-        self.rsi_orpec_rank = ""
-        self.rsi_orpec_stars = ""
-
-        if rsi_info['data']['organizations'] is not None and type == 'live':
+        if rsi_info['data']['organizations'] is not None:
             for org in rsi_info['data']['organizations']:
                 if org['sid'] == 'orpec':
                     self.rsi_orpec_status = org['type']
                     self.rsi_orpec_rank = org['rank']
                     self.rsi_orpec_stars = org['stars']
+
+                    break
+                else:
+                    self.rsi_orpec_status = ""
+                    self.rsi_orpec_rank = ""
+                    self.rsi_orpec_stars = ""
 
     def update_discord_info(self, discord_info):
         """
@@ -99,13 +98,15 @@ class Member:
         self.discord_join_date = discord_info.discord_join_date
         self.discord_id = discord_info.discord_id
 
-        self.discord_fleet = ""
+        ### NEED REAL COLORS###
         if discord_info.color == (0, 0, 0):
             self.discord_fleet = 'Exploration'
         elif discord_info.color == (100, 100, 100):
             self. discord_fleet = 'Support'
         elif discord_info.color == (255, 255, 255):
             self.discord_fleet = 'Navy'
+        else:
+            self.discord_fleet = ""
 
         self.discord_rank = ""
         for rank in discord_info.roles:

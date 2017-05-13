@@ -8,7 +8,8 @@
 
     :copyright: 2017 ORPEC
 """
-# Standard Modules
+# Python Native Moduels
+from collections import namedtuple
 import asyncio
 import time
 
@@ -17,7 +18,6 @@ import discord
 
 # Application Modules
 from resources.Store import store
-from resources.support import *
 
 discord_client = discord.Client()
 
@@ -25,6 +25,18 @@ discord_member = namedtuple(
         'disc_member',
         'discord_name, discord_id, discord_nick, discord_join_date, roles, color, member'
     )
+
+
+def fetch_token(file):
+    """
+
+    :param file: 
+    :return: 
+    """
+    with open(file, 'r') as f:
+        password = f.read()
+
+    return password
 
 
 def get_discord_members():
@@ -69,7 +81,9 @@ async def on_ready():
     print(discord_client.user.id)
     print('------')
 
-    store.add_discord_members(get_discord_members())
+    store.update_discord_users(get_discord_members())
+
+    store.toggle_status()
 
 
 @discord_client.event
@@ -80,7 +94,7 @@ command better server you, could you please respond with your RSI Handle?
 Example: https://roberspaceindustries.com/citizens/mpowerpc <- mpowerpc is a RSI Handle
     
 If you are unable to find your handle, please message a member of command."""
-    store.add_discord_members(convert_discord_member(member))
+    store.update_discord_users(convert_discord_member(member))
 
     pm = await discord_client.start_private_message(member)
 
