@@ -12,59 +12,46 @@
 # Standard Modules
 import time
 import threading
-import datetime
+import logging.config
+
+# Initialize Logging
+logging.config.fileConfig('resources/logging.cfg')
 
 # Application Modules
-from resources.support import *
-from resources.DiscordClient import discord_client
-from resources.GoogleClient import google_client
+
+from resources.DiscordClient import discord_client, fetch_token
 from resources.Store import store
 
 
-def bot():
+def member_manager(logger=logging.getLogger(__name__)):
     """
     
     :return: 
     """
-    last_date = datetime.datetime.now()
+    logger.info("Initializing Member Management.")
+
+    store.fetch_tracked_users()
 
     while True:
-        sys_date = datetime.datetime.now()
 
-        if sys_date > last_date + datetime.timedelta(minutes=5):
-            store.mass_update_rsi_info()
+        if store.get_status():
+            logger.info("Updating google member dictionary.")
+            store.update_users('cache')
+            store.update_tracked_users()
 
-            google_client.clean_db()
-
-            google_client.reset_client()
-            for i, org_mem in enumerate(store.output()):
-                print(org_mem.create_record())
-                print()
-                google_client.write_db(i + 2, org_mem.create_record())
-
-            last_date = sys_date
-
-        try:
-            existing_members = google_client.get_db()
-        except:
-            google_client.reset_client()
-            existing_members = google_client.get_db()
-
-        store.add_existing_members(existing_members)
-
-        time.sleep(60)
-        
-@client.event
-async def on_member_join(member):
-    print("Member Joined", member)
-    server = member.server
-    print(server)
-    fmt = 'Welcome {0.mention} to ORPEC, the Outer Rim Protection and Exploration Corporation'
-    await client.send_message(server, fmt.format(member, server))
+        time.sleep(5)
 
 
 def main():
-    bot_thread = threading.Thread(target=bot)
+    """
+    
+    :return: 
+    """
+    logger = logging.getLogger(__name__)
+
+    logger.info("Initializing ORPEC Discord Bot")
+
+    bot_thread = threading.Thread(target=member_manager, args=(logger,))
     bot_thread.daemon = True
     bot_thread.start()
 

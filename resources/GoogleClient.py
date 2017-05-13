@@ -8,12 +8,12 @@
 
     :copyright: 2017 ORPEC
 """
+# Python Native Moduels
+from collections import namedtuple
+
 # 3rd Party Modules
 from oauth2client.service_account import ServiceAccountCredentials
 import gspread
-
-# Application Modules
-from resources.support import *
 
 
 class GoogleClient:
@@ -22,7 +22,7 @@ class GoogleClient:
 
     _member = namedtuple(
         'member',
-        'orpec_id, rsi_handle, rsi_moniker, discord_name, discord_nick, discord_id, discord_join_date, rsi_backer, \
+        'rsi_handle, rsi_moniker, discord_name, discord_nick, discord_id, discord_join_date, rsi_backer, \
         country, english, rsi_orpec_status, rsi_orpec_rank, rsi_orpec_stars, discord_rank, discord_fleet'
     )
 
@@ -53,7 +53,6 @@ class GoogleClient:
         while row[3] != '' or row[1] != '':
             member_list.append(
                 self._member(
-                    count-1,
                     row[0],
                     row[1],
                     row[2],
